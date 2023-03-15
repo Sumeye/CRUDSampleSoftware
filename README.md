@@ -47,7 +47,9 @@
 ├── README.md
 ├── CRUDSampleSoftware.sln
 ├── script.sql
+├── CRUD SAMPLE API DOCUMANTİON.docx
 ```
+`CRUD SAMPLE API DOCUMANTİON.docx` This file has api method details.
 ### sql run instructions
 ---
 
