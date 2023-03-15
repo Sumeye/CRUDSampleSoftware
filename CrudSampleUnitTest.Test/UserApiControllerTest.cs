@@ -48,21 +48,21 @@ namespace CrudSampleUnitTest.Test
             Assert.Equal<int>(2, returnUsers.Data.ToList().Count);
         }
 
-        //[Theory]
-        //[InlineData(3)]
-        //public async void UpdateUser_ActionExecutes_ReturnNoContentDto(int userId)
-        //{
-        //    var user = users.FirstOrDefault(x => x.Id == userId);
-        //    if (user != null)
-        //    {
-        //        var userName = "SumeyyeYerli";
-        //        user.UserName = userName;
-        //        _mockUserService.Setup(x => x.UpdateAsync(user));
-        //        var result = await _usercontroller.Update(_mapper.Map<UserUpdateDto>(user));
-        //        _mockUserService.Verify(x => x.UpdateAsync(It.IsAny<Users>()), Times.Once);
-        //        Assert.IsType<ObjectResult>(result);
-        //    }
-        //}
+        [Theory]
+        [InlineData(3)]
+        public async void UpdateUser_ActionExecutes_ReturnNoContentDto(int userId)
+        {
+            var user = users.FirstOrDefault(x => x.Id == userId);
+            if (user != null)
+            {
+                var userName = "SumeyyeYerli";
+                user.UserName = userName;
+                _mockUserService.Setup(x => x.UpdateAsync(_mapper.Map<UserUpdateDto>(user)));
+                var result = await _usercontroller.Update(_mapper.Map<UserUpdateDto>(user));
+                _mockUserService.Verify(x => x.UpdateAsync(It.IsAny<UserUpdateDto>()), Times.Once);
+                Assert.IsType<ObjectResult>(result);
+            }
+        }
 
         [Fact]
         public async void SaveUser_ActionExecutes_ReturnObjectResultUser()
