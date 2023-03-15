@@ -48,4 +48,9 @@
 ├── CRUDSampleSoftware.sln
 ├── script.sql
 ```
-## `Script.sql` is required for  the database
+### sql run instructions
+---
+use `CREATE DATABASE CrudSampleDb;` to create database
+
+###### `Script.sql` is required for  the database. Run the `Script.sql` file.
+
