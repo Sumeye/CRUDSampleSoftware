@@ -4,7 +4,7 @@
 
 | GitHub | .NET Core Version |  |
 | :--- | :---: | ---: |
-| main | 6.0.1222.57109 |  |
+| master | 6.0.1222.57109 |  |
 
 # Project Structure
 ```bash
