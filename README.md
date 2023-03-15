@@ -54,6 +54,7 @@ use `CREATE DATABASE CrudSampleDb;` to create database
 
 ###### `Script.sql` is required for  the database. Run the `Script.sql` file.
 
-Create,Update Delete,Get methods use with swagger for run
+Create,Update Delete,Get methods use with swagger for run.
+
 Xunit; It was used to test the workability of the methods.
 
