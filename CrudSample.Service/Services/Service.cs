@@ -43,10 +43,10 @@ namespace CrudSample.Service.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T updateEntity, T setEntity)
         {
-                _repository.Update(entity);
-                await _unitOfWork.CommitAsync();
+            _repository.Update(updateEntity, setEntity);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

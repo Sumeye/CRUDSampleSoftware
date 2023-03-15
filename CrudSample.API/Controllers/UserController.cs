@@ -34,7 +34,7 @@ namespace CrudSample.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
         {
-            await _userService.UpdateAsync(_mapper.Map<Users>(userUpdateDto));
+            await _userService.UpdateAsync(userUpdateDto);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
 

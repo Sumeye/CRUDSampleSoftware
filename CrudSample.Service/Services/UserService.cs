@@ -4,7 +4,9 @@ using CrudSample.Core.Models;
 using CrudSample.Core.Repositories;
 using CrudSample.Core.Services;
 using CrudSample.Core.UnitOfWork;
+using CrudSample.Repository.UnitOfWork;
 using CrudSample.Service.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrudSample.Service.Services
 {
@@ -12,6 +14,7 @@ namespace CrudSample.Service.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
         public UserService(IGenericRepository<Users> repository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
@@ -19,6 +22,7 @@ namespace CrudSample.Service.Services
             ) : base(repository, unitOfWork)
         {
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
             _userRepository = userRepository;
         }
 
@@ -26,15 +30,8 @@ namespace CrudSample.Service.Services
         public async Task UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var user = await _userRepository.GetByIdAsync(userUpdateDto.Id);
-            if (user == null)
-            {
-                throw new ClientSideException($"{typeof(UserDto).Name} ({userUpdateDto.Id}) Not Found");
-            }
-            user.Name = userUpdateDto.Name ?? string.Empty;
-            user.SurName = userUpdateDto.Name ?? string.Empty;
-            user.Email = userUpdateDto.Email ?? string.Empty;
-            user.Password = userUpdateDto.Password ?? string.Empty;
-            _userRepository.Update(user);
+            _userRepository.Update(user, _mapper.Map<Users>(userUpdateDto));
+            await _unitOfWork.CommitAsync();
         }
     }
 }

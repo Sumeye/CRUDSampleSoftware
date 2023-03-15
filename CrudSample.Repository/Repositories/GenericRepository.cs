@@ -23,9 +23,20 @@ namespace CrudSample.Repository.Repositories
             return _dbSet.AsNoTracking().AsQueryable();
         }
 
-        public void Update(T entity)
+        public void Update(T updateEntity, T setEntity)
         {
-            _dbSet.Update(entity);
+            if (setEntity == null)
+                throw new ArgumentNullException(nameof(setEntity));
+
+            if (updateEntity == null)
+                throw new ArgumentNullException(nameof(updateEntity));
+            _context.Entry(updateEntity).CurrentValues.SetValues(setEntity);//Tüm kayıtlar, kolon eşitlemesine gitmeden bir entity'den diğerine atanır.
+            //Olmayan yani null gelen kolonlar, var olan tablonun üstüne ezilmesin diye ==> "IsModified = false" olarak atanır ve var olan kayıtların null olarak güncellenmesi engellenir.
+            foreach (var property in _context.Entry(setEntity).Properties)
+            {
+                if (property.CurrentValue == null) { _context.Entry(updateEntity).Property(property.Metadata.Name).IsModified = false; }
+            }
+
         }
         public void Remove(T entity)
         {
